@@ -130,17 +130,19 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship,
 		check_high_score(stats, sb)
 	
 	if len(aliens) == 0:
-		# Destroys existent bullets, increases game speed and creates a 
-		# new fleet
-		bullets.empty()
-		ai_settings.increase_speed()
-		
-		# Increases level
-		stats.level += 1
-		sb.prep_level()
-		
-		create_fleet(ai_settings, screen, ship, aliens)
-				
+		start_new_level(bullets, ai_settings, stats, sb, screen, ship, aliens)
+
+def start_new_level(bullets, ai_settings, stats, sb, screen, ship, aliens):
+	"""Destroys existent bullets, increases game speed and creates a  new fleet"""
+	bullets.empty()
+	ai_settings.increase_speed()
+
+	# Increases level
+	stats.level += 1
+	sb.prep_level()
+
+	create_fleet(ai_settings, screen, ship, aliens)
+
 def get_number_aliens_x(ai_settings, alien_width):
 	"""Determines the number of aliens that fits in one line."""
 	available_space_x = ai_settings.screen_width - 2 * alien_width
